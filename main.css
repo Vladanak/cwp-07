@@ -1,0 +1,7 @@
+.bl {
+    border: 1px solid red;
+    width: 400px;
+    height: 400px;
+    padding: 10px;
+    margin: 10px;
+}

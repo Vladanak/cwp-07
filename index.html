@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <title>7 lab</title>
+    <link href="main.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+    <div ng-controller="ctr">
+        <h2>Articles</h2>
+        <select ng-model="sortField">
+                    <option id="id">id</option>
+                    <option id="text">text</option>
+                    <option id="title">title</option>
+                    <option id="date" selected>date</option>
+                    <option id="author">author</option>
+                </select>
+        <select ng-model="orderBy">
+                    <option id="desc">desc</option>
+                    <option id="asc">asc</option>
+                </select>
+        <button ng-click="reload(sortField, orderBy)">reload</button>
+        <a href="form.html">Create article</a>
+        <div ng-repeat="article in articles">
+            <div class="bl">
+                <h3>Title</h3><br> {{article.title}}
+                <br>
+                <h3>Text</h3><br> {{article.text}}
+                <br>
+                <h3>Author</h3><br> {{article.author}}
+                <h3>Date</h3><br> {{article.date}}
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+
+</body>
+
+</html>
