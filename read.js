@@ -1,16 +1,14 @@
-const log = require('./log');
-const file = require('fs').createWriteStream('logfile.json');
+const log = require('./log').log;
 let articles = require('./articles.json');
-const err = { code: 400, message: 'Invalid request' }
 
-module.exports.read = function readAll(req, res, payload, cb) {
-    let article = articles.find(i => i.id == payload.id);
-    if (article != undefined) {
-        log.log(file, '/api/articles/read', payload);
-        cb(null, article, 'application/json');
-        return;
-    } else {
-        cb(err);
-        return;
-    }
-};
+module.exports.read = function read(req, res, payload, cb) {
+	if (payload.id == undefined) cb( { code: 400, message: 'Invalid request' } );
+	else {
+	    let article = articles.find(i => i.id == payload.id);
+	    if (article != undefined) {
+	    	log('/api/articles/read', payload);
+	    	cb(null, article, 'application/json');
+	    }
+	    else cb( { code: 404, message: 'Not found' } );
+	}
+}

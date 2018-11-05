@@ -1,12 +1,12 @@
 const logF = require('./logfile.json');
 
-module.exports.log = function log(file, url, data) {
+module.exports.log = function log(url, data) {
     const current = new Date();
     let info = {
-        date: (current.getDay() + 1) + '.' + (current.getMonth() + 1) + '.' + current.getFullYear() + ' ' + current.getHours() + ':' + current.getMinutes() + ':' + current.getSeconds(),
+        date: `${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}`,
         url: url,
-        data: JSON.stringify(data)
+        data: data
     };
     logF.push(info);
     require('fs').createWriteStream('logfile.json').write(JSON.stringify(logF));
-};
+}

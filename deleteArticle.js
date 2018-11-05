@@ -1,14 +1,14 @@
-const log = require('./log');
-const file = require('fs').createWriteStream('logfile.json');
+const log = require('./log').log;
 let articles = require('./articles.json');
 
 module.exports.deleteArticle = function deleteArticle(req, res, payload, cb) {
-    let ind = articles.findIndex(i => i.id === payload.id);
-    if (ind != -1) {
-        articles.splice(ind, 1);
-        log.log(file, '/api/articles/delete', payload);
-        cb(null, articles[ind], 'application/json');
-    } else {
-        cb('err');
-    }
-};
+	if (payload.id == undefined) cb( { code: 400, message: 'Invalid request' } );
+	else {
+	    let ind = articles.findIndex(i => i.id == payload.id);
+	    if (ind != -1) {
+	    	log('/api/articles/delete', payload);
+	        articles.splice(ind, 1);
+	        cb(null, articles, 'application/json');
+	    } else cb( { code: 404, message: 'Not found' } );
+	}
+}
